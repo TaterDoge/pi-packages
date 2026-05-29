@@ -1,0 +1,31 @@
+{
+  "name": "@taterdoge/pi-ayu",
+  "version": "0.1.0",
+  "description": "Ayu-inspired dark and light themes for Pi.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-theme",
+    "pi",
+    "ayu"
+  ],
+  "files": [
+    "themes",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "themes": [
+      "./themes/ayu-dark.json",
+      "./themes/ayu-light.json"
+    ]
+  },
+  "scripts": {
+    "check": "biome check ."
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

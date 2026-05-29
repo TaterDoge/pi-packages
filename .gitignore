@@ -1,0 +1,14 @@
+node_modules/
+*.log
+.DS_Store
+dist/
+coverage/
+.npm/
+.pnpm-store/
+.pi-lens/
+*.tsbuildinfo
+
+# Changesets
+.changeset/*.md
+!.changeset/README.md
+!.changeset/config.json
