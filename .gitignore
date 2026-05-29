@@ -8,7 +8,3 @@ coverage/
 .pi-lens/
 *.tsbuildinfo
 
-# Changesets
-.changeset/*.md
-!.changeset/README.md
-!.changeset/config.json
