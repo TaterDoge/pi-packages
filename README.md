@@ -6,18 +6,12 @@ This repository is a Bun workspaces monorepo for building and testing Pi extensi
 
 ```txt
 packages/
-├── pi-hello/
+├── pi-ayu/
 │   ├── src/
-│   │   └── hello.ts
+│   │   └── ayu.ts
 │   ├── LICENSE
 │   ├── README.md
 │   └── package.json
-└── pi-history/
-    ├── src/
-    │   └── history.ts
-    ├── LICENSE
-    ├── README.md
-    └── package.json
 ```
 
 ## Quick start
@@ -30,20 +24,18 @@ bun run check
 Run an extension directly with Pi:
 
 ```bash
-pi -e ./packages/pi-hello
-pi -e ./packages/pi-history
+pi -e ./packages/pi-ayu
 ```
 
 Or install from a local package path:
 
 ```bash
-pi install ./packages/pi-hello
-pi install ./packages/pi-history
+pi install ./packages/pi-ayu
 ```
 
 ## Add a new extension
 
-1. Copy `packages/pi-hello` to `packages/pi-your-extension`
+1. Copy an existing package (e.g. `packages/pi-ayu`) to `packages/pi-your-extension`
 2. Rename the package, extension entry, command, and tool names
 3. Add a new `pack:*` script in the root `package.json` if needed
 4. Run `bun run check`
