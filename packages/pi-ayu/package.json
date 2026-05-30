@@ -1,26 +1,42 @@
 {
   "name": "@taterdoge/pi-ayu",
-  "version": "0.1.1",
-  "description": "Ayu-inspired dark and light themes for Pi.",
+  "version": "0.1.3",
+  "description": "Ayu dark and light color themes for the Pi Coding Agent. Low-contrast dark surface with amber, blue, green, and coral accents.",
   "type": "module",
   "license": "MIT",
   "private": false,
   "keywords": [
     "pi-package",
+    "pi-extension",
     "pi-theme",
     "pi",
-    "ayu"
+    "pi-coding-agent",
+    "ayu",
+    "dark-theme",
+    "light-theme",
+    "color-theme"
   ],
   "files": [
     "themes",
+    "assets",
     "README.md",
     "LICENSE"
   ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/packages/pi-ayu#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "packages/pi-ayu"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
   "pi": {
     "themes": [
       "./themes/ayu-dark.json",
       "./themes/ayu-light.json"
-    ]
+    ],
+    "image": "https://raw.githubusercontent.com/TaterDoge/pi-packages/main/packages/pi-ayu/assets/dark.png"
   },
   "scripts": {
     "check": "biome check ."

@@ -1,41 +1,46 @@
 # @taterdoge/pi-ayu
 
-Ayu-inspired themes for Pi, based on the dark and light palettes from [ayu-colors](https://github.com/ayu-theme/ayu-colors/tree/master/themes).
+Ayu-inspired themes for the Pi Coding Agent. This package provides both dark and light Ayu variants as installable Pi themes.
 
-## What it adds
+## Available Themes
 
-- `ayu-dark` - low-contrast dark surface with Ayu amber, blue, green, and coral accents
-- `ayu-light` - clean light surface with the same Ayu syntax and status palette
+| ayu-dark | ayu-light |
+|:---:|:---:|
+| ![ayu-dark](./assets/dark.png) | ![ayu-light](./assets/light.png) |
 
-## Local usage
+- `ayu-dark` (dark)
+- `ayu-light` (light)
+
+## Install
+
+```shell
+pi install npm:@taterdoge/pi-ayu
+```
+
+Or try without installing
+
+```shell
+pi -e npm:@taterdoge/pi-ayu
+```
+
+Then select a theme via `/settings`.
+
+## Local Development
 
 Run Pi with this local package:
 
-```bash
+```shell
 pi -e ./packages/pi-ayu
 ```
 
 Or install it from the local path:
 
-```bash
+```shell
 pi install ./packages/pi-ayu
 ```
 
-Then open `/settings` and choose `ayu-dark` or `ayu-light`.
+## Uninstall
 
-You can also set the theme directly in `settings.json`:
-
-```json
-{
-  "theme": "ayu-dark"
-}
+```shell
+pi remove npm:@taterdoge/pi-ayu
 ```
-
-## Development
-
-```bash
-bun install
-bun run --cwd packages/pi-ayu check
-```
-
-The package exposes its themes through the `pi.themes` manifest field in `package.json`.
