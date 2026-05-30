@@ -1,27 +1,58 @@
-# Pi Extensions Monorepo
+# 🎨 Pi Packages
 
-This repository is a Bun workspaces monorepo for building and testing Pi extensions locally.
+[![npm scope](https://img.shields.io/badge/npm-@taterdoge-blue)](https://www.npmjs.com/org/taterdoge) [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
-## Layout
+Theme and extension packages for the [Pi](https://pi.dev) coding agent. This Bun workspaces monorepo provides independently installable Pi packages for Ayu color themes and more.
 
-```txt
-packages/
-├── pi-ayu/
-│   ├── src/
-│   │   └── ayu.ts
-│   ├── LICENSE
-│   ├── README.md
-│   └── package.json
+## 📦 Pi packages
+
+Install only the packages you need. Each package is published under the `@taterdoge` npm scope and can be installed directly with `pi install npm:<package>`.
+
+| Pi package | What it adds | Install |
+| --- | --- | --- |
+| [`@taterdoge/pi-ayu`](./packages/pi-ayu) | 🎨 Ayu-inspired dark and light color themes for the Pi terminal UI. | `pi install npm:@taterdoge/pi-ayu` |
+
+## 🚀 Quick start
+
+Install a package from npm:
+
+```bash
+pi install npm:@taterdoge/pi-ayu
 ```
 
-## Quick start
+Try a package once without adding it permanently:
+
+```bash
+pi -e npm:@taterdoge/pi-ayu
+```
+
+Then select a theme via `/settings`.
+
+## 🛠️ Package highlights
+
+### 🎨 Ayu themes
+
+Use [`@taterdoge/pi-ayu`](./packages/pi-ayu) to bring the popular Ayu color scheme to your Pi terminal. Includes both `ayu-dark` (low-contrast dark surface with amber, blue, green, and coral accents) and `ayu-light` variants.
+
+| ayu-dark | ayu-light |
+|:---:|:---:|
+| ![ayu-dark](./packages/pi-ayu/assets/dark.png) | ![ayu-light](./packages/pi-ayu/assets/light.png) |
+
+## 🧑‍💻 Local development
+
+Install dependencies from the repository root:
 
 ```bash
 bun install
+```
+
+Run the full repository check:
+
+```bash
 bun run check
 ```
 
-Run an extension directly with Pi:
+Try a package locally:
 
 ```bash
 pi -e ./packages/pi-ayu
@@ -33,15 +64,33 @@ Or install from a local package path:
 pi install ./packages/pi-ayu
 ```
 
-## Add a new extension
+Preview npm package contents before publishing:
 
-1. Copy an existing package (e.g. `packages/pi-ayu`) to `packages/pi-your-extension`
-2. Rename the package, extension entry, command, and tool names
-3. Add a new `pack:*` script in the root `package.json` if needed
+```bash
+npm pack --workspace @taterdoge/pi-ayu
+```
+
+## 🗂️ Repository structure
+
+```txt
+packages/
+├── pi-ayu/
+│   ├── assets/         # Preview screenshots
+│   ├── themes/         # Theme JSON files
+│   ├── LICENSE
+│   ├── README.md
+│   └── package.json
+```
+
+Each package contains its own `package.json`, `README.md`, `LICENSE`, and source assets. The root workspace handles shared linting, type-checking, and publishing scripts.
+
+## ➕ Add a new package
+
+1. Copy an existing package (e.g. `packages/pi-ayu`) to `packages/pi-your-package`
+2. Rename the package, entry points, and tool names
+3. Add a `pack:*` script in the root `package.json` if needed
 4. Run `bun run check`
 
-## Notes
+## 📄 License
 
-- Each extension package keeps its own `package.json` and `README.md`.
-- The root workspace handles shared linting and type-check scripts.
-- Pi packages should expose extensions through the `pi.extensions` field.
+MIT. See [`LICENSE`](./LICENSE).
