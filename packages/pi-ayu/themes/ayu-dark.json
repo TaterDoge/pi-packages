@@ -50,7 +50,7 @@
     "mdHeading": "yellow",
     "mdLink": "blue",
     "mdLinkUrl": "muted",
-    "mdCode": "indigo",
+    "mdCode": "blue",
     "mdCodeBlock": "green",
     "mdCodeBlockBorder": "gray",
     "mdQuote": "muted",
