@@ -2,7 +2,7 @@
 
 [![npm scope](https://img.shields.io/badge/npm-@taterdoge-blue)](https://www.npmjs.com/org/taterdoge) [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
-Theme and extension packages for the [Pi](https://pi.dev) coding agent. This Bun workspaces monorepo provides independently installable Pi packages for Ayu color themes and more.
+Theme and extension packages for the [Pi](https://pi.dev) coding agent. This Bun workspaces monorepo provides independently installable Pi packages for Ayu color themes, status bars, and more.
 
 ## 📦 Pi packages
 
@@ -11,6 +11,7 @@ Install only the packages you need. Each package is published under the `@taterd
 | Pi package | What it adds | Install |
 | --- | --- | --- |
 | [`@taterdoge/pi-ayu`](./packages/pi-ayu) | 🎨 Ayu-inspired dark and light color themes for the Pi terminal UI. | `pi install npm:@taterdoge/pi-ayu` |
+| [`@taterdoge/pi-status`](./packages/pi-status) | 📊 Configurable live status bar as border decorations around the Editor. | `pi install npm:@taterdoge/pi-status` |
 
 ## 🚀 Quick start
 
@@ -29,6 +30,12 @@ pi -e npm:@taterdoge/pi-ayu
 Then select a theme via `/settings`.
 
 ## 🛠️ Package highlights
+
+### 📊 Pi Status
+
+Use [`@taterdoge/pi-status`](./packages/pi-status) to add a live status bar as border decorations around the Editor. Four configurable zones (top-left, top-right, bottom-left, bottom-right) show real-time segments for activity state, cwd, turn, active tool, git branch, runtime, model, thinking level, TPS, tokens, context window, and cost — all configurable via an interactive `/pi-status` menu.
+
+![pi-status](./packages/pi-status/assets/preview.png)
 
 ### 🎨 Ayu themes
 
@@ -77,6 +84,12 @@ packages/
 ├── pi-ayu/
 │   ├── assets/         # Preview screenshots
 │   ├── themes/         # Theme JSON files
+│   ├── LICENSE
+│   ├── README.md
+│   └── package.json
+├── pi-status/
+│   ├── assets/         # Preview screenshots
+│   ├── src/            # Extension source (TS)
 │   ├── LICENSE
 │   ├── README.md
 │   └── package.json
