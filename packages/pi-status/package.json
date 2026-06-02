@@ -1,0 +1,49 @@
+{
+  "name": "@taterdoge/pi-status",
+  "version": "1.0.0",
+  "description": "Configurable status bar with border decorations around the Editor for Pi.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi",
+    "terminal",
+    "status"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/packages/pi-status#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "packages/pi-status"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "image": "https://raw.githubusercontent.com/TaterDoge/pi-packages/main/packages/pi-status/assets/preview.png"
+  },
+  "scripts": {
+    "check": "tsc --noEmit && biome check ."
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@earendil-works/pi-tui": "^0.76.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@earendil-works/pi-tui": "^0.76.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
