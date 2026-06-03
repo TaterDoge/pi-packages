@@ -1,6 +1,5 @@
 import type { ActivityState, ComponentId, PiStatusConfig, Zone } from "./types.ts";
 
-export const WIDGET_KEY = "pi-status";
 export const STALE_REFRESH_INTERVAL_MS = 1000;
 export const PROJECT_REFRESH_INTERVAL_MS = 30_000;
 export const TOOL_STALE_AFTER_MS = 30_000;

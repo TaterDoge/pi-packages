@@ -7,30 +7,34 @@ export function formatUsageCount(value: number): string {
   return `${Math.round(value / 1000)}k`;
 }
 
-function isAssistantMessageEntry(entry: SessionEntry): entry is SessionEntry & {
+type AssistantMessageEntry = SessionEntry & {
   type: "message";
   message: {
     role: "assistant";
-    usage?: {
-      input?: number;
-      output?: number;
-    };
+    usage?: Partial<UsageTotals>;
   };
-} {
+};
+
+function isAssistantMessageEntry(entry: SessionEntry): entry is AssistantMessageEntry {
   return entry.type === "message" && entry.message.role === "assistant";
 }
 
+const EMPTY_USAGE: Readonly<UsageTotals> = { input: 0, output: 0 };
+
+function addUsageTotals(totals: UsageTotals, usage: Partial<UsageTotals> = EMPTY_USAGE): void {
+  const { input = 0, output = 0 } = usage;
+  totals.input += input;
+  totals.output += output;
+}
+
 export function getUsageTotals(ctx: ExtensionContext): UsageTotals {
-  let input = 0;
-  let output = 0;
+  const totals = { input: 0, output: 0 };
 
   // Match Pi's built-in footer: use every persisted session entry, not only
   // the active branch. This keeps totals stable after branching/compaction.
-  for (const entry of ctx.sessionManager.getEntries()) {
-    if (!isAssistantMessageEntry(entry)) continue;
-    input += entry.message.usage?.input ?? 0;
-    output += entry.message.usage?.output ?? 0;
+  for (const entry of ctx.sessionManager.getEntries().filter(isAssistantMessageEntry)) {
+    addUsageTotals(totals, entry.message.usage);
   }
 
-  return { input, output };
+  return totals;
 }
