@@ -29,7 +29,6 @@ export const ALL_COMPONENT_IDS = [
   "thinking",
   "context",
   "tokens",
-  "cost",
   "turn",
   "current_tool",
   "tps",
@@ -44,7 +43,6 @@ export const COMPONENT_LABELS: Record<ComponentId, string> = {
   thinking: "Thinking level",
   context: "Context usage",
   tokens: "Input/output token totals",
-  cost: "Estimated session cost",
   turn: "Current turn number",
   current_tool: "Currently executing tool",
   tps: "Tokens per second",
@@ -64,7 +62,6 @@ export const DEFAULT_CONFIG: PiStatusConfig = {
     { id: "tps", enabled: true, zone: "bottom-left" },
     { id: "tokens", enabled: true, zone: "bottom-right" },
     { id: "context", enabled: true, zone: "bottom-right" },
-    { id: "cost", enabled: true, zone: "bottom-right" },
   ],
 };
 
@@ -77,7 +74,6 @@ export const STATUS_STYLES: Record<ComponentId | "separator", string> = {
   thinking: "bold yellow",
   context: "green",
   tokens: "bright-black",
-  cost: "bold green",
   turn: "bright-black",
   current_tool: "bold cyan",
   tps: "bold green",

@@ -1,7 +1,7 @@
 import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-coding-agent";
 import { Container, Key, matchesKey, Text } from "@earendil-works/pi-tui";
-import { writePiStatusConfig } from "../config.ts";
 import { fitBorder } from "../border.ts";
+import { writePiStatusConfig } from "../config.ts";
 import { COMPONENT_LABELS, DEFAULT_CONFIG, ZONE_LABELS } from "../constants.ts";
 import { renderZoneContent } from "../render.ts";
 import type { ComponentConfig, Zone } from "../types.ts";

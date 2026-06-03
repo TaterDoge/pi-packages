@@ -12,7 +12,7 @@ import {
   handleSeparator,
   showMenu,
 } from "./command/index.ts";
-import { emptyGitStatus, readGitStatus } from "./components/git.ts";
+import { readGitStatus } from "./components/git.ts";
 import { readRuntimeInfo } from "./components/runtime.ts";
 import {
   onAgentEnd as tpsOnAgentEnd,
@@ -30,8 +30,8 @@ import {
   TOOL_STALE_AFTER_MS,
 } from "./constants.ts";
 import { createPiStatusEditorFactory } from "./editor.ts";
-import { syncInteractiveState } from "./state.ts";
-import type { PiStatusConfig, RuntimeState } from "./types.ts";
+import { createRuntimeHandles, createRuntimeState, syncInteractiveState } from "./state.ts";
+import type { PiStatusConfig } from "./types.ts";
 
 export default function piStatus(pi: ExtensionAPI) {
   let config: PiStatusConfig = readPiStatusConfig();
@@ -40,28 +40,8 @@ export default function piStatus(pi: ExtensionAPI) {
   let projectRefreshInFlight = false;
   let projectRefreshPending = false;
 
-  const state: RuntimeState = {
-    ...emptyGitStatus(),
-    activity: "idle",
-    running: false,
-    destroyed: false,
-    turnIndex: 0,
-    modelLabel: "no-model",
-    providerLabel: "Unknown",
-    contextLabel: "--",
-    tokenLabel: "↑0 ↓0",
-    costLabel: "$0.000",
-    thinkingLevel: "",
-    currentTool: "",
-    toolStartedAt: undefined,
-    tpsLabel: "0 tok/s",
-    runtime: undefined,
-    staleTimer: undefined,
-    staleInterval: undefined,
-    projectTimer: undefined,
-    spinnerIndex: 0,
-    spinnerInterval: undefined,
-  };
+  const state = createRuntimeState();
+  const handles = createRuntimeHandles();
 
   function requestRender() {
     requestWidgetRender?.();
@@ -124,33 +104,33 @@ export default function piStatus(pi: ExtensionAPI) {
   }
 
   function startProjectTimer(ctx: ExtensionContext) {
-    if (state.projectTimer) clearInterval(state.projectTimer);
-    state.projectTimer = setInterval(
+    if (handles.projectTimer) clearInterval(handles.projectTimer);
+    handles.projectTimer = setInterval(
       () => void refreshProjectState(ctx),
       PROJECT_REFRESH_INTERVAL_MS,
     );
   }
 
   function clearStaleTimer(): void {
-    if (state.staleTimer) {
-      clearTimeout(state.staleTimer);
-      state.staleTimer = undefined;
+    if (handles.staleTimer) {
+      clearTimeout(handles.staleTimer);
+      handles.staleTimer = undefined;
     }
-    if (state.staleInterval) {
-      clearInterval(state.staleInterval);
-      state.staleInterval = undefined;
+    if (handles.staleInterval) {
+      clearInterval(handles.staleInterval);
+      handles.staleInterval = undefined;
     }
   }
 
   function startStaleTimer(): void {
     clearStaleTimer();
-    state.staleTimer = setTimeout(() => {
+    handles.staleTimer = setTimeout(() => {
       if (state.destroyed || state.activity !== "tool") return;
       state.activity = "stale";
       state.spinnerIndex = 0;
       syncAnimation();
       requestRender();
-      state.staleInterval = setInterval(() => {
+      handles.staleInterval = setInterval(() => {
         if (state.activity !== "stale") {
           clearStaleTimer();
           return;
@@ -161,9 +141,9 @@ export default function piStatus(pi: ExtensionAPI) {
   }
 
   function clearSpinner(): void {
-    if (state.spinnerInterval) {
-      clearInterval(state.spinnerInterval);
-      state.spinnerInterval = undefined;
+    if (handles.spinnerInterval) {
+      clearInterval(handles.spinnerInterval);
+      handles.spinnerInterval = undefined;
     }
     state.spinnerIndex = 0;
   }
@@ -173,7 +153,7 @@ export default function piStatus(pi: ExtensionAPI) {
     const frames = SPINNER_FRAMES[state.activity];
     const animatesStatus = Boolean(frames && frames.length > 1);
     if (!animatesStatus) return;
-    state.spinnerInterval = setInterval(() => {
+    handles.spinnerInterval = setInterval(() => {
       if (state.destroyed) {
         clearSpinner();
         return;
@@ -305,8 +285,8 @@ export default function piStatus(pi: ExtensionAPI) {
     state.destroyed = true;
     clearStaleTimer();
     clearSpinner();
-    if (state.projectTimer) clearInterval(state.projectTimer);
-    state.projectTimer = undefined;
+    if (handles.projectTimer) clearInterval(handles.projectTimer);
+    handles.projectTimer = undefined;
     requestRender();
   });
 

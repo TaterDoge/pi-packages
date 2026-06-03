@@ -9,7 +9,6 @@ export type ComponentId =
   | "thinking"
   | "context"
   | "tokens"
-  | "cost"
   | "turn"
   | "current_tool"
   | "tps";
@@ -29,15 +28,13 @@ export type PiStatusConfig = {
 export type UsageTotals = {
   input: number;
   output: number;
-  cost: number;
 };
 
-export type AssistantUsageMessage = {
-  usage?: {
-    input?: number;
-    output?: number;
-    cost?: { total?: number };
-  };
+export type RuntimeHandles = {
+  staleTimer: ReturnType<typeof setTimeout> | undefined;
+  staleInterval: ReturnType<typeof setInterval> | undefined;
+  projectTimer: ReturnType<typeof setInterval> | undefined;
+  spinnerInterval: ReturnType<typeof setInterval> | undefined;
 };
 
 export type RuntimeInfo = {
@@ -70,16 +67,10 @@ export type RuntimeState = GitStatusSummary & {
   modelLabel: string;
   providerLabel: string;
   contextLabel: string;
-  tokenLabel: string;
-  costLabel: string;
   thinkingLevel: string;
   currentTool: string;
   toolStartedAt: number | undefined;
   tpsLabel: string;
   runtime?: RuntimeInfo;
-  staleTimer: ReturnType<typeof setTimeout> | undefined;
-  staleInterval: ReturnType<typeof setInterval> | undefined;
-  projectTimer: ReturnType<typeof setInterval> | undefined;
   spinnerIndex: number;
-  spinnerInterval: ReturnType<typeof setInterval> | undefined;
 };
