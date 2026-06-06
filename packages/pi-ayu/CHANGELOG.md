@@ -2,18 +2,17 @@
 
 ## 0.1.3
 
-### Patch Changes
+### Minor Changes
 
-- Add gallery preview images, repository link, optimize description and keywords for discoverability.
-
-## 0.1.2
+- Enhanced package metadata, preview images, and documentation
 
 ### Patch Changes
 
-- Update README with install/uninstall instructions, add `pi-extension` keyword, change mdCode color from indigo/teal to blue.
+- Fixed theme `mdCode` color from indigo/teal to unified blue
 
 ## 0.1.1
 
-### Patch Changes
+### Initial Release
 
-- Initial public release with `ayu-dark` and `ayu-light` Pi themes.
+- Ayu dark and light color themes for the Pi Coding Agent
+- Low-contrast dark surface with amber, blue, green, and coral accents
