@@ -1,5 +1,6 @@
 import type { ComponentId } from "../types.ts";
 import { renderContextComponent } from "./context.ts";
+import { renderCostComponent } from "./cost.ts";
 import { renderCurrentToolComponent } from "./current-tool.ts";
 import { renderCwdComponent } from "./cwd.ts";
 import { renderGitComponent } from "./git.ts";
@@ -18,6 +19,7 @@ export const COMPONENT_RENDERERS: Record<ComponentId, ComponentRenderer> = {
   cwd: renderCwdComponent,
   git: renderGitComponent,
   runtime: renderRuntimeComponent,
+  cost: renderCostComponent,
   model: renderModelComponent,
   thinking: renderThinkingComponent,
   context: renderContextComponent,

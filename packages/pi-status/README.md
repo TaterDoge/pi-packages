@@ -10,7 +10,7 @@ Configurable Pi extension that wraps the Editor with a live status bar using bor
 
 - Status bar rendered as border decorations around the Editor
 - Four configurable zones: top-left, top-right, bottom-left, bottom-right
-- Real-time segments for activity state, cwd, turn, active tool, git, runtime, model, thinking, TPS, tokens, and context
+- Real-time segments for activity state, cwd, turn, active tool, git, runtime, model, thinking, TPS, tokens, context, and cost
 - Configurable components, zones, and separator
 - Interactive `/pi-status` menu for toggling settings
 - Project/global settings stored in standalone `pi-status.json` files
@@ -51,6 +51,7 @@ pi -e npm:@taterdoge/pi-status
 | `tps` | Tokens per second | bottom-left |
 | `tokens` | Session input/output token totals | bottom-right |
 | `context` | Context window usage | bottom-right |
+| `cost` | Session cost from provider-reported usage | top-right |
 
 ## Configuration
 
@@ -73,6 +74,7 @@ Default config:
     { "id": "current_tool", "enabled": true, "zone": "top-left" },
     { "id": "git", "enabled": true, "zone": "top-left" },
     { "id": "runtime", "enabled": true, "zone": "top-left" },
+    { "id": "cost", "enabled": true, "zone": "top-right" },
     { "id": "model", "enabled": true, "zone": "bottom-left" },
     { "id": "thinking", "enabled": true, "zone": "bottom-left" },
     { "id": "tps", "enabled": true, "zone": "bottom-left" },

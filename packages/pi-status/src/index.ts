@@ -241,6 +241,7 @@ export default function piStatus(pi: ExtensionAPI) {
     if (state.destroyed) return;
     tpsOnMessageEnd(event);
     syncInteractiveState(state, ctx, pi);
+    requestRender();
     void refreshProjectState(ctx);
   });
 

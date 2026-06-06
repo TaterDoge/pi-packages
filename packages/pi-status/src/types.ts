@@ -9,6 +9,7 @@ export type ComponentId =
   | "thinking"
   | "context"
   | "tokens"
+  | "cost"
   | "turn"
   | "current_tool"
   | "tps";
@@ -28,6 +29,14 @@ export type PiStatusConfig = {
 export type UsageTotals = {
   input: number;
   output: number;
+};
+
+export type UsageCostTotals = {
+  input: number;
+  output: number;
+  cacheRead: number;
+  cacheWrite: number;
+  total: number;
 };
 
 export type RuntimeHandles = {

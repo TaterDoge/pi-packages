@@ -1,6 +1,6 @@
 {
   "name": "@taterdoge/pi-status",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Configurable status bar with border decorations around the Editor for Pi.",
   "type": "module",
   "license": "MIT",
