@@ -5,6 +5,7 @@ export type ComponentRenderInput = {
   state: RuntimeState;
   ctx: ExtensionContext;
   theme: Pick<Theme, "fg" | "bold">;
+  config: import("../types.ts").PiStatusConfig;
 };
 
 export type ComponentRenderer = (input: ComponentRenderInput) => string;

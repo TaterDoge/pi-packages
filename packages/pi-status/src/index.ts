@@ -8,6 +8,7 @@ import { truncateToWidth } from "@earendil-works/pi-tui";
 import {
   type CommandContext,
   handleComponents,
+  handleContextBarStyle,
   handleReset,
   handleSeparator,
   showMenu,
@@ -21,7 +22,7 @@ import {
   onMessageStart as tpsOnMessageStart,
   onMessageUpdate as tpsOnMessageUpdate,
 } from "./components/tps.ts";
-import { isComponentEnabled, migrateLegacyPiStatusConfig, readPiStatusConfig } from "./config.ts";
+import { isComponentEnabled, readPiStatusConfig } from "./config.ts";
 import {
   PROJECT_REFRESH_INTERVAL_MS,
   SPINNER_FRAMES,
@@ -182,7 +183,6 @@ export default function piStatus(pi: ExtensionAPI) {
 
   pi.on("session_start", async (_event, ctx) => {
     if (state.destroyed) return;
-    migrateLegacyPiStatusConfig();
     config = readPiStatusConfig();
     syncInteractiveState(state, ctx, pi);
     installEditor(ctx);
@@ -293,11 +293,12 @@ export default function piStatus(pi: ExtensionAPI) {
 
   pi.registerCommand("pi-status", {
     description:
-      "Control the status bar around the Editor. Subcommands: components, separator, reset.",
+      "Control the status bar around the Editor. Subcommands: components, separator, context-style, reset.",
     handler: async (args, ctx) => {
       const [sub] = args.trim().toLowerCase().split(/\s+/);
       if (sub === "components") return handleComponents(cmdCtx, ctx, pi);
       if (sub === "separator") return handleSeparator(cmdCtx, ctx);
+      if (sub === "context-style") return handleContextBarStyle(cmdCtx, ctx);
       if (sub === "reset") return handleReset(cmdCtx, ctx);
       return showMenu(cmdCtx, ctx, pi);
     },

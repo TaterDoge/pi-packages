@@ -83,7 +83,7 @@ export function collectZoneSegments(
   for (const component of config.components) {
     if (!component.enabled) continue;
     if (component.zone !== zone) continue;
-    const value = COMPONENT_RENDERERS[component.id]({ state, ctx, theme });
+    const value = COMPONENT_RENDERERS[component.id]({ state, ctx, theme, config });
     if (!value) continue;
     const style =
       component.id === "runtime" && state.runtime
@@ -134,7 +134,7 @@ export function renderFlatLine(
   const segments: string[] = [];
   for (const component of config.components) {
     if (!component.enabled) continue;
-    const value = COMPONENT_RENDERERS[component.id]({ state, ctx, theme });
+    const value = COMPONENT_RENDERERS[component.id]({ state, ctx, theme, config });
     if (!value) continue;
     const style =
       component.id === "runtime" && state.runtime

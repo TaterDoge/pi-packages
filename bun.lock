@@ -17,7 +17,7 @@
     },
     "packages/pi-status": {
       "name": "@taterdoge/pi-status",
-      "version": "0.1.0",
+      "version": "1.2.0",
       "devDependencies": {
         "@earendil-works/pi-coding-agent": "^0.76.0",
         "@earendil-works/pi-tui": "^0.76.0",

@@ -1,5 +1,12 @@
 # @taterdoge/pi-status
 
+## 1.2.0
+
+### Minor Changes
+
+- Added configurable context bar style presets
+- Moved global config to Pi's extension config directory
+
 ## 1.1.0
 
 ### Minor Changes

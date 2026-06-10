@@ -1,10 +1,10 @@
 import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-coding-agent";
 import { Container, Key, matchesKey, Text } from "@earendil-works/pi-tui";
-import { handleReset, handleSeparator } from "./actions.ts";
+import { handleContextBarStyle, handleReset, handleSeparator } from "./actions.ts";
 import { handleComponents } from "./components.ts";
 import type { CommandContext } from "./context.ts";
 
-type MenuAction = "components" | "separator" | "reset" | "close";
+type MenuAction = "components" | "separator" | "context-style" | "reset" | "close";
 
 export async function showMenu(
   cmdCtx: CommandContext,
@@ -17,6 +17,7 @@ export async function showMenu(
     const items: Array<{ action: MenuAction; label: () => string }> = [
       { action: "components", label: () => "Change components" },
       { action: "separator", label: () => "Change separator" },
+      { action: "context-style", label: () => "Change context bar style" },
       { action: "reset", label: () => "Reset to defaults" },
       { action: "close", label: () => "Close" },
     ];
@@ -56,5 +57,6 @@ export async function showMenu(
 
   if (action === "components") return handleComponents(cmdCtx, ctx, pi);
   if (action === "separator") return handleSeparator(cmdCtx, ctx);
+  if (action === "context-style") return handleContextBarStyle(cmdCtx, ctx);
   if (action === "reset") return handleReset(cmdCtx, ctx);
 }

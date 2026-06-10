@@ -11,9 +11,9 @@ Configurable Pi extension that wraps the Editor with a live status bar using bor
 - Status bar rendered as border decorations around the Editor
 - Four configurable zones: top-left, top-right, bottom-left, bottom-right
 - Real-time segments for activity state, cwd, turn, active tool, git, runtime, model, thinking, TPS, tokens, context, and cost
-- Configurable components, zones, and separator
+- Configurable components, zones, separator, and context bar presets
 - Interactive `/pi-status` menu for toggling settings
-- Project/global settings stored in standalone `pi-status.json` files
+- Settings stored in Pi's extension config directory, with optional project override
 
 ## Install
 
@@ -33,7 +33,8 @@ pi -e npm:@taterdoge/pi-status
 /pi-status                open interactive menu
 /pi-status components     configure components and zones
 /pi-status separator      change the separator
-/pi-status reset          write default config to pi-status.json
+/pi-status context-style  choose a context bar preset
+/pi-status reset          write default config to config.json
 ```
 
 ### Available components
@@ -55,18 +56,23 @@ pi -e npm:@taterdoge/pi-status
 
 ## Configuration
 
-Settings are stored in standalone `pi-status.json` files, not merged from Pi `settings.json`:
+Settings are stored in the Pi extension config directory, not merged from Pi `settings.json`:
 
-- `~/.pi/agent/pi-status.json` for global settings
+- `~/.pi/agent/extensions/pi-status/config.json` for global settings
 - `.pi/pi-status.json` for project-local settings
 
-Project settings take precedence over global settings when `.pi/pi-status.json` exists. Existing legacy `piStatus` settings are migrated once into `pi-status.json` only when no standalone config already exists.
+Project settings take precedence over global settings when `.pi/pi-status.json` exists.
+
+`contextBarStyle` supports these presets:
+- `blocks`: `◼◼◼◻◻◻◻◻◻◻`
+- `lines`: `━━━───────`
 
 Default config:
 
 ```json
 {
   "separator": " · ",
+  "contextBarStyle": "blocks",
   "components": [
     { "id": "status", "enabled": true, "zone": "top-left" },
     { "id": "cwd", "enabled": true, "zone": "top-left" },

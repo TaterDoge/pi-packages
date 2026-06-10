@@ -1,4 +1,10 @@
-import type { ActivityState, ComponentId, PiStatusConfig, Zone } from "./types.ts";
+import type {
+  ActivityState,
+  ComponentId,
+  ContextBarStyleId,
+  PiStatusConfig,
+  Zone,
+} from "./types.ts";
 
 export const STALE_REFRESH_INTERVAL_MS = 1000;
 export const PROJECT_REFRESH_INTERVAL_MS = 30_000;
@@ -49,8 +55,17 @@ export const COMPONENT_LABELS: Record<ComponentId, string> = {
   tps: "Tokens per second",
 };
 
+export const CONTEXT_BAR_STYLES: Record<
+  ContextBarStyleId,
+  { label: string; filled: string; track: string }
+> = {
+  blocks: { label: "Blocks", filled: "◼", track: "◻" },
+  lines: { label: "Lines", filled: "━", track: "─" },
+};
+
 export const DEFAULT_CONFIG: PiStatusConfig = {
   separator: " · ",
+  contextBarStyle: "blocks",
   components: [
     { id: "status", enabled: true, zone: "top-left" },
     { id: "cwd", enabled: true, zone: "top-left" },

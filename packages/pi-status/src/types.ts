@@ -22,9 +22,12 @@ export type ComponentConfig = {
   zone: Zone;
 };
 
+export type ContextBarStyleId = "blocks" | "lines";
+
 export type PiStatusConfig = {
   separator: string;
   components: ComponentConfig[];
+  contextBarStyle: ContextBarStyleId;
 };
 export type UsageTotals = {
   input: number;
