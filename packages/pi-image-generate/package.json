@@ -1,0 +1,81 @@
+{
+  "name": "@taterdoge/pi-image-generate",
+  "version": "0.1.0",
+  "description": "Skill-driven, user-configurable image generation for Pi with live task status and browser settings.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-skill",
+    "pi",
+    "image-generation",
+    "image-editing"
+  ],
+  "files": [
+    "src",
+    "skills",
+    "web/dist",
+    "assets/preview.png",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/packages/pi-image-generate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "packages/pi-image-generate"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "image": "https://raw.githubusercontent.com/TaterDoge/pi-packages/main/packages/pi-image-generate/assets/preview.png"
+  },
+  "scripts": {
+    "build:web": "vite build",
+    "check": "tsc --noEmit && biome check .",
+    "test": "bun test test",
+    "prepack": "bun run build:web"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "^0.76.0",
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "^0.76.0",
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "tailwindcss": "^4.3.3",
+    "typebox": "1.1.39",
+    "vite": "^8.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@radix-ui/react-label": "^2.1.15",
+    "@radix-ui/react-select": "^2.3.7",
+    "@radix-ui/react-slot": "^1.3.3",
+    "@radix-ui/react-switch": "^1.3.7",
+    "@radix-ui/react-tabs": "^1.1.21",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.28.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0"
+  }
+}

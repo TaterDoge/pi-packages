@@ -8,6 +8,7 @@ This is a monorepo containing multiple Pi extension packages. See each package's
 |---------|---------|-----------|
 | [@taterdoge/pi-ayu](./packages/pi-ayu/README.md) | 0.1.3 | [CHANGELOG](./packages/pi-ayu/CHANGELOG.md) |
 | [@taterdoge/pi-status](./packages/pi-status/README.md) | 1.1.0 | [CHANGELOG](./packages/pi-status/CHANGELOG.md) |
+| [@taterdoge/pi-image-generate](./packages/pi-image-generate/README.md) | 0.1.0 | [CHANGELOG](./packages/pi-image-generate/CHANGELOG.md) |
 
 ## How We Version
 

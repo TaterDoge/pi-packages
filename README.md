@@ -12,6 +12,7 @@ Install only the packages you need. Each package is published under the `@taterd
 | --- | --- | --- |
 | [`@taterdoge/pi-ayu`](./packages/pi-ayu) | 🎨 Ayu-inspired dark and light color themes for the Pi terminal UI. | `pi install npm:@taterdoge/pi-ayu` |
 | [`@taterdoge/pi-status`](./packages/pi-status) | 📊 Configurable live status bar as border decorations around the Editor. | `pi install npm:@taterdoge/pi-status` |
+| [`@taterdoge/pi-image-generate`](./packages/pi-image-generate) | 🖼️ Skill-driven image generation with configurable providers, models, protocols, live status, and browser settings. | `pi install npm:@taterdoge/pi-image-generate` |
 
 ## 🚀 Quick start
 
@@ -37,12 +38,18 @@ Use [`@taterdoge/pi-status`](./packages/pi-status) to add a live status bar as b
 
 ![pi-status](./packages/pi-status/assets/preview.png)
 
+### 🖼️ Pi Image Generate
+
+Use [`@taterdoge/pi-image-generate`](./packages/pi-image-generate) for skill-driven image generation and editing. Configure your own OpenAI Images-compatible, Gemini-compatible, or generic JSON provider/model in the local browser page opened by `/image-generate settings`, then follow every generation phase in Pi's status area.
+
+![pi-image-generate](./packages/pi-image-generate/assets/preview.png)
+
 ### 🎨 Ayu themes
 
 Use [`@taterdoge/pi-ayu`](./packages/pi-ayu) to bring the popular Ayu color scheme to your Pi terminal. Includes both `ayu-dark` (low-contrast dark surface with amber, blue, green, and coral accents) and `ayu-light` variants.
 
-| ayu-dark | ayu-light |
-|:---:|:---:|
+| ayu-dark                                        | ayu-light                                         |
+| :---------------------------------------------: | :-----------------------------------------------: |
 | ![ayu-dark](./packages/pi-ayu/assets/dark.png) | ![ayu-light](./packages/pi-ayu/assets/light.png) |
 
 ## 🧑‍💻 Local development
@@ -84,6 +91,15 @@ packages/
 ├── pi-ayu/
 │   ├── assets/         # Preview screenshots
 │   ├── themes/         # Theme JSON files
+│   ├── LICENSE
+│   ├── README.md
+│   └── package.json
+├── pi-image-generate/
+│   ├── assets/         # Package preview
+│   ├── skills/         # Image generation skill
+│   ├── src/            # Extension source (TS)
+│   ├── test/           # Bun tests
+│   ├── web/            # React settings page and built assets
 │   ├── LICENSE
 │   ├── README.md
 │   └── package.json
