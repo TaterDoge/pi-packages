@@ -1,6 +1,6 @@
 {
   "name": "@taterdoge/pi-image-generate",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Skill-driven, user-configurable image generation for Pi with live task status and browser settings.",
   "type": "module",
   "license": "MIT",

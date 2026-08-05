@@ -1,5 +1,11 @@
 # @taterdoge/pi-image-generate
 
+## 0.2.0
+
+### Minor Changes
+
+- [`e566705`](https://github.com/TaterDoge/pi-packages/commit/e56670568647c1eb9d87037542d37a6358ca88ef) Thanks [@TaterDoge](https://github.com/TaterDoge)! - Publish the initial skill-driven image generation package with configurable providers, models, protocols, live task status, and a global settings workflow.
+
 ## 0.1.0
 
 ### Initial Release
