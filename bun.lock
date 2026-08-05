@@ -48,16 +48,6 @@
         "typebox": "*",
       },
     },
-    "packages/pi-otty-integration": {
-      "name": "@taterdoge/pi-otty-integration",
-      "version": "0.1.0",
-      "devDependencies": {
-        "@earendil-works/pi-coding-agent": "^0.76.0",
-      },
-      "peerDependencies": {
-        "@earendil-works/pi-coding-agent": "^0.76.0",
-      },
-    },
     "packages/pi-status": {
       "name": "@taterdoge/pi-status",
       "version": "1.2.0",
@@ -411,8 +401,6 @@
     "@taterdoge/pi-ayu": ["@taterdoge/pi-ayu@workspace:packages/pi-ayu"],
 
     "@taterdoge/pi-image-generate": ["@taterdoge/pi-image-generate@workspace:packages/pi-image-generate"],
-
-    "@taterdoge/pi-otty-integration": ["@taterdoge/pi-otty-integration@workspace:packages/pi-otty-integration"],
 
     "@taterdoge/pi-status": ["@taterdoge/pi-status@workspace:packages/pi-status"],
 
