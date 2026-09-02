@@ -18,7 +18,7 @@
     },
     "packages/pi-image-generate": {
       "name": "@taterdoge/pi-image-generate",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "dependencies": {
         "@radix-ui/react-label": "^2.1.15",
         "@radix-ui/react-select": "^2.3.7",
@@ -47,6 +47,16 @@
         "@earendil-works/pi-ai": "^0.76.0",
         "@earendil-works/pi-coding-agent": "^0.76.0",
         "typebox": "*",
+      },
+    },
+    "packages/pi-remember-model": {
+      "name": "@taterdoge/pi-remember-model",
+      "version": "0.1.0",
+      "devDependencies": {
+        "@earendil-works/pi-coding-agent": "^0.76.0",
+      },
+      "peerDependencies": {
+        "@earendil-works/pi-coding-agent": "^0.76.0",
       },
     },
     "packages/pi-status": {
@@ -406,6 +416,8 @@
     "@taterdoge/pi-ayu": ["@taterdoge/pi-ayu@workspace:packages/pi-ayu"],
 
     "@taterdoge/pi-image-generate": ["@taterdoge/pi-image-generate@workspace:packages/pi-image-generate"],
+
+    "@taterdoge/pi-remember-model": ["@taterdoge/pi-remember-model@workspace:packages/pi-remember-model"],
 
     "@taterdoge/pi-status": ["@taterdoge/pi-status@workspace:packages/pi-status"],
 
