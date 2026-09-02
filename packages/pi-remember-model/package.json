@@ -1,0 +1,48 @@
+{
+  "name": "@taterdoge/pi-remember-model",
+  "version": "0.1.0",
+  "description": "Persist the last selected model and thinking level to Pi's global settings.json.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi",
+    "model",
+    "persistence"
+  ],
+  "files": [
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/packages/pi-remember-model#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "packages/pi-remember-model"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "scripts": {
+    "check": "tsc --noEmit && biome check .",
+    "test": "bun test test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.76.0"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.76.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
