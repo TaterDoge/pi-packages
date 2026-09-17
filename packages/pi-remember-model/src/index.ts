@@ -71,7 +71,10 @@ export default function piRememberModel(pi: ExtensionAPI) {
     // Pi reads `modelThinkingLevels` while booting only, so it never notices a level written
     // mid-session: re-apply the remembered level here. The write above covers the next start.
     const level = storedThinkingLevel(provider, id);
-    if (level) pi.setThinkingLevel(level);
+    // Cast: the oldest supported peer (pi 0.76) knows fewer levels than newer pis emit
+    // (e.g. "max"); the value is already validated against THINKING_LEVELS in
+    // storedThinkingLevel, so adapt it to whichever union this build typechecks against.
+    if (level) pi.setThinkingLevel(level as Parameters<typeof pi.setThinkingLevel>[0]);
   });
 
   pi.on("thinking_level_select", async (event, ctx) => {
