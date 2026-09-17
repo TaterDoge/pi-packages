@@ -27,7 +27,9 @@ jobs:
         run: bun run check
 
       - name: Configure npm authentication
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+        # Write to $HOME, not the repo: changesets' version commit runs `git add .`, which
+        # would otherwise commit the token-expanded .npmrc (blocked by GitHub push protection).
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Create Release Pull Request or Publish
         id: changesets
