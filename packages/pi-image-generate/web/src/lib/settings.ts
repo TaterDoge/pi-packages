@@ -3,7 +3,7 @@ import type {
   ImageGenerateSettings,
   ModelConfig,
   ProviderConfig,
-} from "@/types";
+} from "../types.js";
 
 export const BUILT_INS = ["openai-images", "gemini-generate-content"];
 export const EMPTY_PROVIDER: ProviderConfig = { baseUrl: "https://", protocol: "openai-images" };

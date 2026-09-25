@@ -1,4 +1,4 @@
-import type { ConfigIssue } from "@/types";
+import type { ConfigIssue } from "../types.js";
 
 export async function api<T = unknown>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(path, {
