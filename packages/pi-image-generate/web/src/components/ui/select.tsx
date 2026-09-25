@@ -10,7 +10,6 @@ import {
   type SelectSectionProps,
   Value,
 } from "@kobalte/core/select";
-import { Check, ChevronsUpDown } from "lucide-solid";
 import type { ComponentProps, JSX, ValidComponent } from "solid-js";
 import { mergeProps, splitProps } from "solid-js";
 import { cn } from "@/lib/utils";
@@ -90,7 +89,7 @@ const SelectTrigger = <T extends ValidComponent = "button">(rawProps: SelectTrig
       {...others}
     >
       {local.children}
-      <SelectPrimitive.Icon as={ChevronsUpDown} class="pointer-events-none size-4 opacity-50" />
+      <SelectPrimitive.Icon class="iconify lucide--chevrons-up-down pointer-events-none size-4 opacity-50" />
     </SelectPrimitive.Trigger>
   );
 };
@@ -163,7 +162,7 @@ const SelectItem = <T extends ValidComponent = "li">(
         as="span"
         class="absolute right-2 flex size-4 items-center justify-center"
       >
-        <Check class="pointer-events-none size-4" />
+        <span class="iconify lucide--check pointer-events-none size-4" aria-hidden="true" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   );

@@ -13,7 +13,7 @@
     "biome:check": "biome check .",
     "check:boundaries": "node ./scripts/check-extension-boundaries.mjs",
     "typecheck": "tsc --noEmit",
-    "check": "bun run biome:check && bun run check:boundaries && bun run typecheck",
+    "check": "bun run biome:check && bun run check:boundaries && bun run typecheck && bun run --filter @taterdoge/pi-image-generate build:web",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"
