@@ -12,7 +12,7 @@ Skill-driven image generation and editing for Pi. You configure providers, proto
 - `/image-generate <prompt>` shorthand and explicit `generate` form
 - Generated images open in a browser tab for preview as soon as generation finishes
 - Live `preparing`, `requesting`, `polling`, `downloading`, and `saving` status
-- Local React, Tailwind CSS, and shadcn/ui settings page for provider/model/protocol CRUD
+- Local Solid, Tailwind CSS, and Zaidan settings page for provider/model/protocol CRUD
 - Searchable provider `/models` discovery with checkbox multi-select and batch add
 - Fixed default model; the tool never accepts a model override
 - Generic OpenAI Images, Gemini generateContent, and configurable JSON task protocols

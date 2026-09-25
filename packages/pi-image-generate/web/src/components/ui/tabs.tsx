@@ -1,30 +1,75 @@
-import * as TabsPrimitive from "@radix-ui/react-tabs";
-import type * as React from "react";
-import { cn } from "../../lib/utils";
+import type { PolymorphicProps } from "@kobalte/core/polymorphic";
+import {
+  Content,
+  List,
+  Root,
+  type TabsContentProps as TabsContentPrimitiveProps,
+  type TabsListProps as TabsListPrimitiveProps,
+  type TabsRootProps,
+  type TabsTriggerProps as TabsTriggerPrimitiveProps,
+  Trigger,
+} from "@kobalte/core/tabs";
+import { type ComponentProps, splitProps, type ValidComponent } from "solid-js";
 
-export const Tabs = TabsPrimitive.Root;
-export const TabsContent = TabsPrimitive.Content;
+import { cn } from "@/lib/utils";
 
-export function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {
+// The `z-tabs*` hooks are expanded into utilities because Zaidan's style layer
+// is not published alongside the registry items.
+type TabsProps<T extends ValidComponent = "div"> = PolymorphicProps<T, TabsRootProps<T>> &
+  Pick<ComponentProps<T>, "class" | "children">;
+
+const Tabs = <T extends ValidComponent = "div">(props: TabsProps<T>) => {
+  const [local, others] = splitProps(props as TabsProps, ["class"]);
+  return <Root class={cn("flex flex-col gap-5", local.class)} {...others} />;
+};
+
+type TabsListProps<T extends ValidComponent = "div"> = PolymorphicProps<
+  T,
+  TabsListPrimitiveProps<T>
+> &
+  Pick<ComponentProps<T>, "class" | "children">;
+
+const TabsList = <T extends ValidComponent = "div">(props: TabsListProps<T>) => {
+  const [local, others] = splitProps(props as TabsListProps, ["class"]);
   return (
-    <TabsPrimitive.List
-      className={cn("flex gap-1 rounded-xl border border-white/10 bg-slate-950/50 p-1", className)}
-      {...props}
-    />
-  );
-}
-
-export function TabsTrigger({
-  className,
-  ...props
-}: React.ComponentProps<typeof TabsPrimitive.Trigger>) {
-  return (
-    <TabsPrimitive.Trigger
-      className={cn(
-        "rounded-lg px-4 py-2 text-sm font-medium text-slate-400 transition-colors hover:text-white data-[state=active]:bg-white/10 data-[state=active]:text-cyan-200",
-        className,
+    <List
+      class={cn(
+        "inline-flex w-fit items-center justify-center gap-1 rounded-lg bg-muted p-1 text-muted-foreground",
+        local.class,
       )}
-      {...props}
+      {...others}
     />
   );
-}
+};
+
+type TabTriggerProps<T extends ValidComponent = "button"> = PolymorphicProps<
+  T,
+  TabsTriggerPrimitiveProps<T>
+> &
+  Pick<ComponentProps<T>, "class" | "children">;
+
+const TabsTrigger = <T extends ValidComponent = "button">(props: TabTriggerProps<T>) => {
+  const [local, others] = splitProps(props as TabTriggerProps, ["class"]);
+  return (
+    <Trigger
+      class={cn(
+        "inline-flex h-8 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-sm font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-selected:bg-background data-selected:text-foreground data-selected:shadow-sm",
+        local.class,
+      )}
+      {...others}
+    />
+  );
+};
+
+type TabsContentProps<T extends ValidComponent = "div"> = PolymorphicProps<
+  T,
+  TabsContentPrimitiveProps<T>
+> &
+  Pick<ComponentProps<T>, "class" | "children">;
+
+const TabsContent = <T extends ValidComponent = "div">(props: TabsContentProps<T>) => {
+  const [local, others] = splitProps(props as TabsContentProps, ["class"]);
+  return <Content class={cn("flex flex-col gap-5 outline-none", local.class)} {...others} />;
+};
+
+export { Tabs, TabsContent, TabsList, TabsTrigger };

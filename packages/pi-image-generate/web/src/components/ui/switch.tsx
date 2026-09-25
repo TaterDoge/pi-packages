@@ -1,17 +1,33 @@
-import * as SwitchPrimitive from "@radix-ui/react-switch";
-import type * as React from "react";
-import { cn } from "../../lib/utils";
+import type { PolymorphicProps } from "@kobalte/core/polymorphic";
+import { Control, Input, Root, type SwitchRootProps, Thumb } from "@kobalte/core/switch";
+import { type ComponentProps, splitProps, type ValidComponent } from "solid-js";
 
-export function Switch({ className, ...props }: React.ComponentProps<typeof SwitchPrimitive.Root>) {
+import { cn } from "@/lib/utils";
+
+type SwitchProps<T extends ValidComponent = "div"> = PolymorphicProps<T, SwitchRootProps<T>> &
+  Pick<ComponentProps<T>, "class">;
+
+const Switch = <T extends ValidComponent = "div">(props: SwitchProps<T>) => {
+  const [local, others] = splitProps(props as SwitchProps, ["checked", "class", "id"]);
   return (
-    <SwitchPrimitive.Root
-      className={cn(
-        "relative h-6 w-11 rounded-full bg-slate-700 outline-none transition-colors data-[state=checked]:bg-cyan-300 focus-visible:ring-2 focus-visible:ring-cyan-400",
-        className,
+    <Root
+      class={cn(
+        "group/switch relative inline-flex h-5 w-9 shrink-0 items-center rounded-full bg-input outline-none transition-colors data-checked:bg-primary data-disabled:opacity-50 focus-within:ring-[3px] focus-within:ring-ring/50",
+        local.class,
       )}
-      {...props}
+      {...others}
     >
-      <SwitchPrimitive.Thumb className="block size-5 translate-x-0.5 rounded-full bg-white shadow transition-transform data-[state=checked]:translate-x-5" />
-    </SwitchPrimitive.Root>
+      <Input id={local.id} />
+      <Control class="flex h-5 w-9 cursor-pointer items-center rounded-full">
+        <Thumb
+          class={cn(
+            "block size-4 rounded-full bg-background shadow-sm transition-transform",
+            local.checked ? "translate-x-[18px]" : "translate-x-0.5",
+          )}
+        />
+      </Control>
+    </Root>
   );
-}
+};
+
+export { Switch, type SwitchProps };
