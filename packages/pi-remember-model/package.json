@@ -1,7 +1,7 @@
 {
   "name": "@taterdoge/pi-remember-model",
   "version": "0.1.1",
-  "description": "Persist the last selected model and thinking level to Pi's global settings.json.",
+  "description": "Persist the last selected model to Pi's settings.json and the thinking level to the plugin cache.",
   "type": "module",
   "license": "MIT",
   "private": false,

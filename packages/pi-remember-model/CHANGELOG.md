@@ -1,5 +1,11 @@
 # @taterdoge/pi-remember-model
 
+## Unreleased
+
+### Patch Changes
+
+- Store per-model thinking levels in `~/.pi/agent/extensions/pi-remember-model/thinking-levels.json` instead of `modelThinkingLevels` in Pi's `settings.json`. Model defaults (`defaultProvider` / `defaultModel`) are unchanged.
+
 ## 0.1.1
 
 ### Patch Changes
