@@ -2,7 +2,7 @@ import { afterEach, describe, expect, test } from "bun:test";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import path from "node:path";
-import piRememberModel, { patchSettings, settingsPath, thinkingLevelsPath } from "../src/index.ts";
+import piRememberModel, { patchSettings, settingsPath } from "../src/index.ts";
 
 const tempDirs = [];
 const savedEnv = process.env.PI_CODING_AGENT_DIR;
@@ -25,6 +25,10 @@ function useTempAgentDir() {
   return dir;
 }
 
+function readSettingsFile() {
+  return JSON.parse(readFileSync(settingsPath(), "utf8"));
+}
+
 describe("settingsPath", () => {
   test("resolves PI_CODING_AGENT_DIR when set", () => {
     const dir = useTempAgentDir();
@@ -42,8 +46,8 @@ describe("patchSettings", () => {
     const dir = useTempAgentDir();
     patchSettings({ defaultModel: "m1" });
 
-    const written = JSON.parse(readFileSync(path.join(dir, "settings.json"), "utf8"));
-    expect(written).toEqual({ defaultModel: "m1" });
+    expect(readSettingsFile()).toEqual({ defaultModel: "m1" });
+    expect(existsSync(path.join(dir, "settings.json"))).toBe(true);
   });
 
   test("merges into existing settings, preserving unrelated keys", () => {
@@ -57,8 +61,7 @@ describe("patchSettings", () => {
 
     patchSettings({ defaultProvider: "anthropic", defaultModel: "m2" });
 
-    const written = JSON.parse(readFileSync(path.join(dir, "settings.json"), "utf8"));
-    expect(written).toEqual({
+    expect(readSettingsFile()).toEqual({
       theme: "ayu-dark",
       defaultProvider: "anthropic",
       defaultModel: "m2",
@@ -75,8 +78,23 @@ describe("patchSettings", () => {
 
     patchSettings({ extra: { added: true } });
 
-    const written = JSON.parse(readFileSync(path.join(dir, "settings.json"), "utf8"));
-    expect(written.extra).toEqual({ keep: true, added: true });
+    expect(readSettingsFile().extra).toEqual({ keep: true, added: true });
+  });
+
+  test("merges one modelThinkingLevels entry without dropping the others", () => {
+    const dir = useTempAgentDir();
+    writeFileSync(
+      path.join(dir, "settings.json"),
+      JSON.stringify({ modelThinkingLevels: { "xai/grok-4.6": "xhigh" } }),
+      "utf8",
+    );
+
+    patchSettings({ modelThinkingLevels: { "openai/gpt-5": "low" } });
+
+    expect(readSettingsFile().modelThinkingLevels).toEqual({
+      "xai/grok-4.6": "xhigh",
+      "openai/gpt-5": "low",
+    });
   });
 
   test("starts fresh on invalid JSON instead of throwing", () => {
@@ -84,8 +102,7 @@ describe("patchSettings", () => {
     writeFileSync(path.join(dir, "settings.json"), "{ not json", "utf8");
 
     expect(() => patchSettings({ defaultModel: "m3" })).not.toThrow();
-    const written = JSON.parse(readFileSync(path.join(dir, "settings.json"), "utf8"));
-    expect(written).toEqual({ defaultModel: "m3" });
+    expect(readSettingsFile()).toEqual({ defaultModel: "m3" });
   });
 });
 
@@ -112,7 +129,7 @@ describe("extension wiring", () => {
 
     await pi.handlers.model_select({ source: "set", model: { provider: "openai", id: "gpt-5" } });
 
-    const written = JSON.parse(readFileSync(settingsPath(), "utf8"));
+    const written = readSettingsFile();
     expect(written.defaultProvider).toBe("openai");
     expect(written.defaultModel).toBe("gpt-5");
   });
@@ -132,18 +149,18 @@ describe("extension wiring", () => {
 
     // gpt-5 has no remembered level, so only grok's is applied
     expect(pi.appliedLevels).toEqual(["off"]);
-    const levels = JSON.parse(readFileSync(thinkingLevelsPath(), "utf8"));
-    expect(levels).toEqual({ "xai/grok-4.6": "off" });
-    expect(JSON.parse(readFileSync(settingsPath(), "utf8")).modelThinkingLevels).toBeUndefined();
+    expect(readSettingsFile().modelThinkingLevels).toEqual({ "xai/grok-4.6": "off" });
   });
 
   test("model_select ignores a stored level pi does not know", async () => {
     useTempAgentDir();
     const pi = makeFakePi();
     piRememberModel(pi);
-    const cache = thinkingLevelsPath();
-    mkdirSync(path.dirname(cache), { recursive: true });
-    writeFileSync(cache, JSON.stringify({ "xai/grok-4.6": "turbo" }), "utf8");
+    writeFileSync(
+      settingsPath(),
+      JSON.stringify({ modelThinkingLevels: { "xai/grok-4.6": "turbo" } }),
+      "utf8",
+    );
 
     await pi.handlers.model_select({ source: "set", model: { provider: "xai", id: "grok-4.6" } });
 
@@ -179,12 +196,25 @@ describe("extension wiring", () => {
       { model: { provider: "anthropic", id: "haiku" } },
     );
 
-    const levels = JSON.parse(readFileSync(thinkingLevelsPath(), "utf8"));
-    expect(levels).toEqual({
-      "openai/gpt-5": "high",
-      "anthropic/haiku": "low",
+    expect(readSettingsFile()).toEqual({
+      modelThinkingLevels: {
+        "openai/gpt-5": "high",
+        "anthropic/haiku": "low",
+      },
     });
-    expect(existsSync(settingsPath())).toBe(false);
+  });
+
+  test("thinking_level_select never writes the global default", async () => {
+    useTempAgentDir();
+    const pi = makeFakePi();
+    piRememberModel(pi);
+
+    await pi.handlers.thinking_level_select(
+      { level: "low" },
+      { model: { provider: "anthropic", id: "haiku" } },
+    );
+
+    expect(readSettingsFile().defaultThinkingLevel).toBeUndefined();
   });
 
   test("thinking_level_select without a current model writes nothing", async () => {
@@ -194,6 +224,6 @@ describe("extension wiring", () => {
 
     await pi.handlers.thinking_level_select({ level: "high" }, {});
 
-    expect(existsSync(thinkingLevelsPath())).toBe(false);
+    expect(existsSync(settingsPath())).toBe(false);
   });
 });

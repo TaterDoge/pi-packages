@@ -10,7 +10,7 @@
 
 ### Patch Changes
 
-- Store per-model thinking levels in `~/.pi/agent/extensions/pi-remember-model/thinking-levels.json` instead of `modelThinkingLevels` in Pi's `settings.json`. Model defaults (`defaultProvider` / `defaultModel`) are unchanged.
+- Store per-model thinking levels back in Pi's own `modelThinkingLevels` in `settings.json` instead of the plugin cache. Pi's startup resolver reads that map and never read the plugin file, so a restarted session always fell back to `defaultThinkingLevel` and dropped the level you picked. `modelThinkingLevels` is the same key `/settings` edits, so the two stay in sync.
 
 ## 0.1.1
 
