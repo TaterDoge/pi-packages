@@ -1,5 +1,11 @@
 # @taterdoge/pi-remember-model
 
+## 0.1.3
+
+### Patch Changes
+
+- [`5abaa2c`](https://github.com/TaterDoge/pi-packages/commit/5abaa2cdf210b9466d831122b6fc9ddb88f73bac) Thanks [@TaterDoge](https://github.com/TaterDoge)! - Store per-model thinking levels in Pi's own `modelThinkingLevels` instead of the plugin cache. Pi's startup resolver reads that map and never read `~/.pi/agent/extensions/pi-remember-model/thinking-levels.json`, so a restarted session always fell back to `defaultThinkingLevel` and dropped the level you picked. `modelThinkingLevels` is the same key `/settings` edits, so both stay in sync.
+
 ## 0.1.2
 
 ### Patch Changes
