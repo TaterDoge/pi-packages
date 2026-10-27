@@ -93,7 +93,11 @@ export function parseGitStatusPorcelain(stdoutText: string, hasStash: boolean): 
 export async function readGitStatus(cwd: string): Promise<GitStatusSummary> {
   try {
     const [{ stdout: statusStdout }, stashResult] = await Promise.all([
-      execFileAsync("git", ["status", "--porcelain=2", "--branch"], { cwd, timeout: 3000 }),
+      // --no-optional-locks: a read-only poll must not rewrite the index and take index.lock.
+      execFileAsync("git", ["--no-optional-locks", "status", "--porcelain=2", "--branch"], {
+        cwd,
+        timeout: 3000,
+      }),
       execFileAsync("git", ["rev-parse", "--verify", "--quiet", "refs/stash"], {
         cwd,
         timeout: 3000,
