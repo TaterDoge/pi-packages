@@ -105,9 +105,25 @@ export function rememberModel(cwd: string, provider: string, id: string): void {
 }
 
 /**
- * True when the session is about to start on Pi's global default, meaning nothing (a `--model`
- * flag, a resumed session's own `model_change`) has claimed the slot yet and this directory's
- * memory may. A session resuming its own model arrives here with a different model, so it wins.
+ * True when the command line names a model. `--model` never reaches settings.json, so the
+ * global-default check below cannot see it: a harness that starts `pi --model X` — pi-subagents
+ * launches every child that way with the agent's own override — would be pulled back to this
+ * directory's record whenever the global default happens to hold that same model, because a
+ * manual switch in any pi instance writes that default.
+ */
+export function hasCliModelSelection(argv: readonly string[]): boolean {
+  for (let index = 0; index < argv.length; index += 1) {
+    if ((argv[index] === "--model" || argv[index] === "--models") && index + 1 < argv.length) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * True when the session is about to start on Pi's global default, meaning nothing (a resumed
+ * session's own `model_change`) has claimed the slot yet and this directory's memory may. A
+ * session resuming its own model arrives here with a different model, so it wins.
  */
 function onGlobalDefault(ctx: ExtensionContext): boolean {
   const settings = readSettings();
@@ -167,8 +183,12 @@ export default function piRememberModel(pi: ExtensionAPI) {
 
   // model_select never fires for a session that starts with no model change, so the directory's
   // record is applied here. Runs for "new" and "fork" (they rebuild the runtime) but also
-  // "startup" and "resume", hence the global-default guard.
+  // "startup" and "resume", hence the global-default guard below. argv never changes for a process,
+  // so the explicit-flag scan runs once instead of per session.
+  const cliModelSelected = hasCliModelSelection(process.argv.slice(2));
+
   pi.on("session_start", async (_event, ctx) => {
+    if (cliModelSelected) return;
     const remembered = rememberedModel(ctx.cwd);
     if (!remembered || !onGlobalDefault(ctx)) return;
     const model = ctx.modelRegistry.find(remembered.provider, remembered.id);

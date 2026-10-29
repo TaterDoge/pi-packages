@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { homedir, tmpdir } from "node:os";
 import path from "node:path";
 import piRememberModel, {
+  hasCliModelSelection,
   modelsPath,
   patchSettings,
   rememberedModel,
@@ -184,6 +185,15 @@ describe("legacy thinking-levels.json migration", () => {
     piRememberModel(makeFakePi());
 
     expect(existsSync(settingsPath())).toBe(false);
+  });
+});
+
+describe("hasCliModelSelection", () => {
+  test("sees --model and --models only when a value follows", () => {
+    expect(hasCliModelSelection(["--model", "anthropic/haiku"])).toBe(true);
+    expect(hasCliModelSelection(["--models", "anthropic/*"])).toBe(true);
+    expect(hasCliModelSelection(["--model"])).toBe(false);
+    expect(hasCliModelSelection(["-p", "hello --model world"])).toBe(false);
   });
 });
 
