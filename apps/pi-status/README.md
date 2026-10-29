@@ -4,7 +4,7 @@
 
 Configurable Pi extension that wraps the Editor with a live status bar using border decorations.
 
-![preview](./assets/preview.png)
+![preview](https://raw.githubusercontent.com/TaterDoge/pi-packages/main/apps/pi-status/assets/preview.png)
 
 ## Features
 
@@ -48,6 +48,8 @@ pi -e npm:@taterdoge/pi-status
 All subcommands appear in the `/pi-status` completion menu, so typing `/pi-status ` and pressing Tab lists them with descriptions. A bare `/pi-status` is the fast path and opens the editor.
 
 ## Browser layout editor
+
+![layout editor](https://raw.githubusercontent.com/TaterDoge/pi-packages/main/apps/pi-status/assets/pi-status-settings.png)
 
 `/pi-status settings` starts a temporary server on `127.0.0.1` and opens a page where the twelve modules can be dragged between the four border zones.
 
