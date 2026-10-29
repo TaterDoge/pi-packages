@@ -19,6 +19,7 @@ export function createRuntimeState(): RuntimeState {
     currentTool: "",
     toolStartedAt: undefined,
     tpsLabel: "0 tok/s",
+    sessionStartedAt: undefined,
     runtime: undefined,
     spinnerIndex: 0,
   };

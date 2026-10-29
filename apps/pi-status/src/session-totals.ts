@@ -1,13 +1,25 @@
 import type { ExtensionContext, SessionEntry } from "@earendil-works/pi-coding-agent";
 import type { SessionTotals } from "./types.ts";
 
-export const EMPTY_TOTALS: Readonly<SessionTotals> = { input: 0, output: 0, cost: 0 };
+export const EMPTY_TOTALS: Readonly<SessionTotals> = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+  cost: 0,
+};
 
 type AssistantEntry = SessionEntry & {
   type: "message";
   message: {
     role: "assistant";
-    usage?: { input?: number; output?: number; cost?: { total?: number } };
+    usage?: {
+      input?: number;
+      output?: number;
+      cacheRead?: number;
+      cacheWrite?: number;
+      cost?: { total?: number };
+    };
   };
 };
 
@@ -32,6 +44,8 @@ export function readSessionTotals(ctx: ExtensionContext): SessionTotals {
     if (!usage) continue;
     totals.input += usage.input ?? 0;
     totals.output += usage.output ?? 0;
+    totals.cacheRead += usage.cacheRead ?? 0;
+    totals.cacheWrite += usage.cacheWrite ?? 0;
     totals.cost += usage.cost?.total ?? 0;
   }
 

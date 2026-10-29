@@ -10,7 +10,7 @@ Configurable Pi extension that wraps the Editor with a live status bar using bor
 
 - Status bar drawn as border decorations around the Editor, so the footer line stays free for extension statuses
 - Four attachment zones: top-left, top-right, bottom-left, bottom-right
-- Twelve modules with live data: activity state, cwd, git, runtime, cost, model, thinking, context, tokens, turn, current tool, tokens per second
+- Fourteen modules with live data: activity state, cwd, git, runtime, cost, model, thinking, context, tokens, turn, current tool, tokens per second, prompt-cache hit rate, session elapsed time — `elapsed` is off until you switch it on
 - Browser layout editor for all settings: drag modules between zones, reorder them, edit the separator, pick the context bar preset
 - `/pi-status` opens that editor directly — there is no TUI submenu to learn
 - Settings in Pi's extension config directory, with an optional per-project override
@@ -82,6 +82,8 @@ The editor works on four ordered lists, not free coordinates. A terminal border 
 | `tps` | Tokens per second | bottom-left |
 | `tokens` | Session input/output token totals | bottom-right |
 | `context` | Context window usage | bottom-right |
+| `cache` | Prompt-cache hit rate for the session, as a share of every prompt token (cache writes count as misses). Shows `0%` before any cache hit is reported. | bottom-right |
+| `elapsed` | Wall clock since the session started, floored to minutes | off by default |
 
 A tool that runs longer than 30 seconds switches `status` to `stale` until it reports back, so a hung tool is visible instead of looking busy forever.
 
@@ -117,7 +119,9 @@ Default config:
     { "id": "thinking", "enabled": true, "zone": "bottom-left" },
     { "id": "tps", "enabled": true, "zone": "bottom-left" },
     { "id": "tokens", "enabled": true, "zone": "bottom-right" },
-    { "id": "context", "enabled": true, "zone": "bottom-right" }
+    { "id": "context", "enabled": true, "zone": "bottom-right" },
+    { "id": "cache", "enabled": true, "zone": "bottom-right" },
+    { "id": "elapsed", "enabled": false, "zone": "top-left" }
   ]
 }
 ```

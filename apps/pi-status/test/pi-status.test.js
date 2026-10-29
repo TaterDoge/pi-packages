@@ -43,6 +43,8 @@ describe("DEFAULT_CONFIG", () => {
         { id: "tps", enabled: true, zone: "bottom-left" },
         { id: "tokens", enabled: true, zone: "bottom-right" },
         { id: "context", enabled: true, zone: "bottom-right" },
+        { id: "cache", enabled: true, zone: "bottom-right" },
+        { id: "elapsed", enabled: false, zone: "top-left" },
       ],
       contextBarStyle: "blocks",
     });
@@ -201,6 +203,16 @@ describe("renderZoneContent", () => {
     expect(line).toContain("↑1.0k ↓500");
     expect(line).toContain("$0.400");
     expect(line).toContain("42%/200k");
+  });
+
+  test("keeps at most one decimal on the context percent", () => {
+    const config = {
+      separator: " · ",
+      contextBarStyle: "blocks",
+      components: [{ id: "context", enabled: true, zone: "bottom-right" }],
+    };
+    const noisy = { ...state, contextPercent: 1.6966819763183594, contextWindow: 1048576 };
+    expect(renderZoneContent(config, noisy, {}, theme, "bottom-right")).toContain("1.7%/1049k");
   });
 
   test("colours a terminal style and keeps a theme colour alongside bold", () => {

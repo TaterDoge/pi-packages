@@ -16,7 +16,7 @@ describe("readSessionTotals", () => {
         assistant({ input: 50, output: 10, cost: { total: 0.002 } }),
       ]),
     );
-    expect(totals).toEqual({ input: 150, output: 50, cost: 0.012 });
+    expect(totals).toEqual({ input: 150, output: 50, cacheRead: 0, cacheWrite: 0, cost: 0.012 });
   });
 
   test("ignores non-assistant and usage-less entries", () => {
@@ -28,11 +28,28 @@ describe("readSessionTotals", () => {
         assistant({ input: 7 }),
       ]),
     );
-    expect(totals).toEqual({ input: 7, output: 0, cost: 0 });
+    expect(totals).toEqual({ input: 7, output: 0, cacheRead: 0, cacheWrite: 0, cost: 0 });
   });
 
   test("returns zeros when the session has no assistant entries", () => {
-    expect(readSessionTotals(ctxWith([]))).toEqual({ input: 0, output: 0, cost: 0 });
+    expect(readSessionTotals(ctxWith([]))).toEqual({
+      input: 0,
+      output: 0,
+      cacheRead: 0,
+      cacheWrite: 0,
+      cost: 0,
+    });
+  });
+
+  test("sums cache read and cache write tokens", () => {
+    const totals = readSessionTotals(
+      ctxWith([
+        assistant({ input: 10, cacheRead: 900, cacheWrite: 90 }),
+        assistant({ input: 10, cacheRead: 100, cacheWrite: 0 }),
+      ]),
+    );
+    expect(totals.cacheRead).toBe(1000);
+    expect(totals.cacheWrite).toBe(90);
   });
 
   test("scans the session once per call", () => {

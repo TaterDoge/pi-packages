@@ -31,6 +31,8 @@ export function renderContextComponent({ state, theme, config }: ComponentRender
   if (!state.contextWindow || state.contextWindow <= 0) return "--";
 
   const percent = state.contextPercent;
-  const percentLabel = percent === undefined ? "?%" : `${Math.max(0, Math.min(999, percent))}%`;
+  // One decimal at most, so float noise stays out of the bar label.
+  const percentLabel =
+    percent === undefined ? "?%" : `${Math.round(Math.max(0, Math.min(999, percent)) * 10) / 10}%`;
   return `ctx ${renderProgressBar(percent, config.contextBarStyle, theme)} ${percentLabel}/${formatUsageCount(state.contextWindow)}`;
 }

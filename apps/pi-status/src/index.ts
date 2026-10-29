@@ -212,6 +212,7 @@ export default function piStatus(pi: ExtensionAPI) {
   pi.on("session_start", async (_event, ctx) => {
     if (state.destroyed) return;
     config = readPiStatusConfig();
+    state.sessionStartedAt = Date.now();
     syncInteractiveState(state, ctx, pi);
     installEditor(ctx);
     syncAnimation();

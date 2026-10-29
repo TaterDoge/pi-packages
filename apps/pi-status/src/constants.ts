@@ -36,6 +36,8 @@ export const ALL_COMPONENT_IDS = [
   "turn",
   "current_tool",
   "tps",
+  "cache",
+  "elapsed",
 ] as const satisfies readonly ComponentId[];
 
 export const CONTEXT_BAR_STYLES: Record<
@@ -62,6 +64,9 @@ export const DEFAULT_CONFIG: PiStatusConfig = {
     { id: "tps", enabled: true, zone: "bottom-left" },
     { id: "tokens", enabled: true, zone: "bottom-right" },
     { id: "context", enabled: true, zone: "bottom-right" },
+    { id: "cache", enabled: true, zone: "bottom-right" },
+    // Elapsed only means something once you look at it, so it stays off by default.
+    { id: "elapsed", enabled: false, zone: "top-left" },
   ],
 };
 
@@ -78,6 +83,8 @@ export const STATUS_STYLES: Record<ComponentId | "separator", string> = {
   turn: "bright-black",
   current_tool: "bold cyan",
   tps: "bold green",
+  cache: "cyan",
+  elapsed: "bright-black",
   separator: "bright-black",
 };
 

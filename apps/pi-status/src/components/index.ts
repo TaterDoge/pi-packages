@@ -1,8 +1,10 @@
 import type { ComponentId } from "../types.ts";
+import { renderCacheComponent } from "./cache.ts";
 import { renderContextComponent } from "./context.ts";
 import { renderCostComponent } from "./cost.ts";
 import { renderCurrentToolComponent } from "./current-tool.ts";
 import { renderCwdComponent } from "./cwd.ts";
+import { renderElapsedComponent } from "./elapsed.ts";
 import { renderGitComponent } from "./git.ts";
 import { renderModelComponent } from "./model.ts";
 import { renderRuntimeComponent } from "./runtime.ts";
@@ -27,4 +29,6 @@ export const COMPONENT_RENDERERS: Record<ComponentId, ComponentRenderer> = {
   turn: renderTurnComponent,
   current_tool: renderCurrentToolComponent,
   tps: renderTpsComponent,
+  cache: renderCacheComponent,
+  elapsed: renderElapsedComponent,
 };

@@ -12,7 +12,9 @@ export type ComponentId =
   | "cost"
   | "turn"
   | "current_tool"
-  | "tps";
+  | "tps"
+  | "cache"
+  | "elapsed";
 
 export type ActivityState = "idle" | "running" | "tool" | "error" | "stale";
 
@@ -28,6 +30,10 @@ export type ContextBarStyleId = "blocks" | "lines";
 export type SessionTotals = {
   input: number;
   output: number;
+  /** Prompt tokens served from the provider cache. */
+  cacheRead: number;
+  /** Prompt tokens written into the provider cache. */
+  cacheWrite: number;
   cost: number;
 };
 
@@ -79,6 +85,8 @@ export type RuntimeState = GitStatusSummary & {
   currentTool: string;
   toolStartedAt: number | undefined;
   tpsLabel: string;
+  /** Wall-clock start of this session; undefined until session_start ran. */
+  sessionStartedAt: number | undefined;
   runtime?: RuntimeInfo;
   spinnerIndex: number;
 };

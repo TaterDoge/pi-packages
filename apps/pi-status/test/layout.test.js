@@ -8,7 +8,7 @@ describe("toLayout / toComponents", () => {
     const config = structuredClone(DEFAULT_CONFIG);
     const layout = toLayout(config);
     const back = toComponents(layout, config);
-    expect(back.filter((component) => component.enabled)).toHaveLength(config.components.length);
+    expect(back.filter((component) => component.enabled)).toHaveLength(enabledIds(layout).length);
     expect(back.map((component) => component.id).sort()).toEqual(
       config.components.map((component) => component.id).sort(),
     );
