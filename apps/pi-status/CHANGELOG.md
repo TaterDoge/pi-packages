@@ -1,5 +1,11 @@
 # @taterdoge/pi-status
 
+## 2.0.1
+
+### Patch Changes
+
+- [`47b5f8b`](https://github.com/TaterDoge/pi-packages/commit/47b5f8b681b6b659d4619943ffdb27ed9dea31d5) Thanks [@TaterDoge](https://github.com/TaterDoge)! - README 补上浏览器拖拽配置页的截图，图片改用 raw 绝对地址，npm 页面上不再缺图。
+
 ## 2.0.0
 
 ### Major Changes
