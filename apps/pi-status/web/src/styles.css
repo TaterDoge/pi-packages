@@ -1,0 +1,38 @@
+/* Extensions own their page: import the shared design tokens, then layer local overrides. */
+@import "@taterdoge/ui/styles.css";
+
+/*
+ * The 16-colour ANSI palette is a browser-side approximation: the terminal decides these
+ * colours, so only the truecolor segments (theme.fg) are exact. Kept close to xterm defaults.
+ */
+:root {
+  --ansi-black: #1b1d1e;
+  --ansi-red: #cc6666;
+  --ansi-green: #b5bd68;
+  --ansi-yellow: #f0c674;
+  --ansi-blue: #5f87ff;
+  --ansi-purple: #b294bb;
+  --ansi-cyan: #00d7ff;
+  --ansi-white: #c5c8c6;
+  --ansi-bright-black: #666666;
+  --ansi-bright-red: #d54e53;
+  --ansi-bright-green: #b9ca4a;
+  --ansi-bright-yellow: #e7c547;
+  --ansi-bright-blue: #7aa6da;
+  --ansi-bright-purple: #c397d8;
+  --ansi-bright-cyan: #70c0b1;
+  --ansi-bright-white: #eaeaea;
+}
+
+.ansi,
+.glyphs {
+  font-family:
+    "Symbols Nerd Font", "Symbols Nerd Font Mono", "JetBrainsMono Nerd Font", ui-monospace,
+    SFMono-Regular, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+}
+
+.ansi {
+  font-variant-ligatures: none;
+  white-space: pre;
+  tab-size: 3;
+}

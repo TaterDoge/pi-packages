@@ -1,0 +1,2 @@
+/* Extensions own their page: import the shared design tokens, then layer local overrides. */
+@import "@taterdoge/ui/styles.css";

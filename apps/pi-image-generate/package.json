@@ -1,0 +1,76 @@
+{
+  "name": "@taterdoge/pi-image-generate",
+  "version": "0.3.0",
+  "description": "Skill-driven, user-configurable image generation for Pi with live task status and browser settings.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi-skill",
+    "pi",
+    "image-generation",
+    "image-editing"
+  ],
+  "files": [
+    "src",
+    "skills",
+    "web/dist",
+    "assets/preview.png",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/apps/pi-image-generate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "apps/pi-image-generate"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "skills": [
+      "./skills"
+    ],
+    "image": "https://raw.githubusercontent.com/TaterDoge/pi-packages/main/apps/pi-image-generate/assets/preview.png"
+  },
+  "scripts": {
+    "build:web": "vite build",
+    "dev:web": "vite build --watch",
+    "check": "tsc --noEmit && biome check .",
+    "test": "bun test test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "^0.76.0",
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@earendil-works/pi-ai": "^0.76.0",
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.5.0",
+    "lucide-react": "^1.62.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
+    "typebox": "1.1.39",
+    "vite": "^8.2.0",
+    "@taterdoge/ui": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

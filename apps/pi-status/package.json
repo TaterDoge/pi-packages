@@ -1,0 +1,70 @@
+{
+  "name": "@taterdoge/pi-status",
+  "version": "1.2.1",
+  "description": "Configurable status bar with border decorations around the Editor for Pi.",
+  "type": "module",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi",
+    "terminal",
+    "status"
+  ],
+  "files": [
+    "src",
+    "web/dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/TaterDoge/pi-packages/tree/main/apps/pi-status#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TaterDoge/pi-packages.git",
+    "directory": "apps/pi-status"
+  },
+  "bugs": {
+    "url": "https://github.com/TaterDoge/pi-packages/issues"
+  },
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "image": "https://raw.githubusercontent.com/TaterDoge/pi-packages/main/apps/pi-status/assets/preview.png"
+  },
+  "scripts": {
+    "build:web": "vite build",
+    "dev:web": "vite build --watch",
+    "check": "tsc --noEmit && biome check .",
+    "test": "bun test test"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@earendil-works/pi-tui": "^0.76.0"
+  },
+  "devDependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@dnd-kit/dom": "0.5.1",
+    "@dnd-kit/react": "0.5.1",
+    "@earendil-works/pi-coding-agent": "^0.76.0",
+    "@earendil-works/pi-tui": "^0.76.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.1.0",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.5.0",
+    "lucide-react": "^1.62.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
+    "vite": "^8.2.0",
+    "@taterdoge/ui": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

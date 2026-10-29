@@ -25,8 +25,8 @@ const SOURCE_FILE_SUFFIXES = [
 ];
 
 const rootDirectory = process.cwd();
-const packagesDirectory = path.join(rootDirectory, "packages");
-const activePackages = findActiveExtensionPackages(packagesDirectory);
+const packagesDirectory = [path.join(rootDirectory, "apps"), path.join(rootDirectory, "packages")];
+const activePackages = packagesDirectory.flatMap(findActiveExtensionPackages);
 const activePackageNames = new Set(activePackages.map((extensionPackage) => extensionPackage.name));
 const failures = [];
 
@@ -60,6 +60,10 @@ function findActiveExtensionPackages(directory) {
     if (typeof packageJson.name !== "string") {
       throw new Error(`${relative(packagePath)} must define a package name.`);
     }
+
+    // Shared libraries (no `pi.extensions`) are dependencies, not extensions, so the
+    // "no extension-to-extension dependencies" rule must not apply to them.
+    if (!packageJson.pi?.extensions) continue;
 
     packages.push({
       directory: path.dirname(packagePath),
